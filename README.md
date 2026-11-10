@@ -1,6 +1,6 @@
-# Dashboard de rendimientos de las Afores (Power BI)
+# Análisis de rendimientos de las Afores (Power BI y Excel)
 
-Dashboard interactivo que compara el **Indicador de Rendimiento Neto (IRN)** de las 10 Afores en México por generación (Siefore), con datos oficiales de la CONSAR de diciembre de 2019 a junio de 2026.
+Análisis del **Indicador de Rendimiento Neto (IRN)** de las 10 Afores en México por generación (Siefore), con datos oficiales de la CONSAR de diciembre de 2019 a junio de 2026. El mismo análisis está hecho en dos herramientas: un dashboard en Power BI y un libro de Excel (ver [Versión en Excel](#versión-en-excel)).
 
 ![Dashboard](dashboard.png)
 
@@ -50,9 +50,31 @@ RETURN MAXX(Tabla, [@IRN]) - MINX(Tabla, [@IRN])
 
 5. **Diseño:** segmentación por Siefore, ranking de Afores, evolución histórica y edición de interacciones para que las tarjetas resumen no se filtren con el ranking.
 
+## Versión en Excel
+
+`Analisis_Rendimientos_Afores_final.xlsx` repite la limpieza en Power Query (misma receta por archivo, sin nombres de meses fijos en el código, así que basta con *Actualizar* si llegan CSV nuevos) y hace el análisis con herramientas de Excel:
+
+- **Catálogo de Siefores** (`tblSiefore`) con el rango de años de nacimiento y el orden de cada generación, unido a los datos (`tblIRN`) con `BUSCARX`.
+- **Tablas dinámicas** de IRN promedio por Siefore, por Afore y por año.
+- **Segmentación de datos** por Siefore conectada a las tres tablas y **escala de tiempo** por fecha.
+- **Gráficas dinámicas:** ranking de Afores (barras) y evolución del IRN promedio (líneas).
+- **Hoja Consulta:** eliges Afore y Siefore en listas desplegables y obtienes la fecha más reciente (`MAX.SI.CONJUNTO`), el último IRN (`BUSCARX` con varios criterios) y su lugar entre las Afores (`CONTAR.SI.CONJUNTO`). La lista de Afores se genera con `ORDENAR(UNICOS(...))`.
+
+| Hoja | Contenido |
+|---|---|
+| `Datos` | Tabla `tblIRN`: Afore, Siefore, Fecha, IRN, Orden (7,350 filas) |
+| `Catalogo` | Tabla `tblSiefore` y lista dinámica de Afores |
+| `TD Siefore` | IRN promedio por generación |
+| `TD Afore` | Ranking de Afores, gráfica, segmentación y escala de tiempo |
+| `TD Fecha` | IRN promedio por año y gráfica de evolución |
+| `Consulta` | Último IRN y lugar por Afore y Siefore |
+
+Para actualizarlo en tu computadora: cambia la ruta de la carpeta en *Datos → Obtener datos → Configuración del origen de datos* y luego *Datos → Actualizar todo*. Requiere Excel 365 o 2021.
+
 ## Archivos
 
 - `Dashboard_Afores.pbix`: el dashboard (se abre con Power BI Desktop, gratuito).
+- `Analisis_Rendimientos_Afores_final.xlsx`: la versión en Excel.
 - `Rendimientos afore por mes/`: archivos CSV por año, tal como se descargaron de la CONSAR.
 
 ## Fuente
