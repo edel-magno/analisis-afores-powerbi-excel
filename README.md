@@ -52,6 +52,8 @@ RETURN MAXX(Tabla, [@IRN]) - MINX(Tabla, [@IRN])
 
 ## Versión en Excel
 
+![Versión en Excel](excel.png)
+
 `Analisis_Rendimientos_Afores_final.xlsx` repite la limpieza en Power Query (misma receta por archivo, sin nombres de meses fijos en el código, así que basta con *Actualizar* si llegan CSV nuevos) y hace el análisis con herramientas de Excel:
 
 - **Catálogo de Siefores** (`tblSiefore`) con el rango de años de nacimiento y el orden de cada generación, unido a los datos (`tblIRN`) con `BUSCARX`.
